@@ -10,11 +10,13 @@ function App() {
   const [characters, setCharacters] = useState<Character[] | null>(null);
 
   useEffect(() => {
+    const fetchCharacters = async () => {
+      const { results: characters } = await rickAndMortyApi.getAllCharacters();
+      setCharacters(characters);
+    };
+
     if (characters === null) {
-      rickAndMortyApi.getAllCharacters().then((res) => {
-        console.log("res", res.results);
-        setCharacters(res.results);
-      });
+      fetchCharacters();
     }
   }, [characters]);
 
