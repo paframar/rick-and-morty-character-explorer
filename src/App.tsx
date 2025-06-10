@@ -1,31 +1,24 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-
-import * as rickAndMortyApi from "./services/api";
 import AppLayout from "./components/AppLayout";
-import CharacterList from "./components/CharacterList";
-import type { Character } from "./types";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import FavoritesPage from "./pages/FavoritesPage";
+import CharactersListPage from "./pages/CharactersListPage";
+import CharacterDetailPage from "./pages/CharacterDetailPage";
 
 function App() {
-  const [characters, setCharacters] = useState<Character[] | null>(null);
-
-  useEffect(() => {
-    const fetchCharacters = async () => {
-      const { results: characters } = await rickAndMortyApi.getAllCharacters();
-      setCharacters(characters);
-    };
-
-    if (characters === null) {
-      fetchCharacters();
-    }
-  }, [characters]);
-
   return (
-    <>
+    <BrowserRouter>
       <AppLayout>
-        <CharacterList characters={characters} />
+        <Routes>
+          <Route path="/" element={<CharactersListPage />} />
+          <Route path="/characters" element={<CharactersListPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/characters/:id" element={<CharacterDetailPage />} />
+          <Route path="/favorites/:id" element={<CharacterDetailPage />} />
+        </Routes>
       </AppLayout>
-    </>
+    </BrowserRouter>
   );
 }
 

@@ -1,59 +1,75 @@
 import React from "react";
-import { UserOutlined, StarFilled } from "@ant-design/icons";
-import type { MenuProps } from "antd";
+import { useNavigate } from "react-router-dom";
 import { Layout, Menu, theme } from "antd";
+import { UserOutlined, StarFilled } from "@ant-design/icons";
+
+const { Header, Content, Footer } = Layout;
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
 const AppLayout = ({ children }: AppLayoutProps) => {
-  const { Header, Content, Footer, Sider } = Layout;
   const {
-    token: { colorBgContainer },
+    token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  type MenuItem = Required<MenuProps>["items"][number];
+  const navigate = useNavigate();
 
-  function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[]
-  ): MenuItem {
-    return {
-      key,
-      icon,
-      children,
-      label,
-    } as MenuItem;
-  }
-
-  const items: MenuItem[] = [
-    getItem("Characters", "1", <UserOutlined />),
-    getItem("Favorites", "2", <StarFilled />),
+  const items = [
+    {
+      key: "1",
+      label: "All Characters ",
+      itemIcon: <UserOutlined />,
+      onClick: () => navigate("/"),
+    },
+    {
+      key: "2",
+      label: "Favorites ",
+      itemIcon: <StarFilled />,
+      onClick: () => navigate("/favorites"),
+    },
   ];
+
   return (
-    <Layout style={{ minHeight: "80vh", minWidth: "80vw" }}>
-      <Sider>
-        <Menu
-          theme="dark"
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          items={items}
-        />
-      </Sider>
-      <Layout style={{ minHeight: "80vh" }}>
-        <Header style={{ background: colorBgContainer }}>
-          <h1>Rick and Morty Character Explorer</h1>
+    <div style={{}}>
+      <Layout>
+        <Header
+          style={{
+            width: "80vw",
+            position: "sticky",
+            top: 0,
+            zIndex: 1,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div className="demo-logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={["2"]}
+            items={items}
+            style={{ flex: 1, minWidth: 0 }}
+          />
         </Header>
-        <Content style={{ padding: 50 }}>{children}</Content>
+        <Content style={{ padding: "0 48px" }}>
+          <div
+            style={{
+              padding: 24,
+              minHeight: 380,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
+            {children}
+          </div>
+        </Content>
         <Footer style={{ textAlign: "center" }}>
-          Rick and Morty Character Explorer ©{new Date().getFullYear()} Created
-          by Pablo Marconi
+          Ant Design ©{new Date().getFullYear()} Created by Ant UED
         </Footer>
       </Layout>
-    </Layout>
+    </div>
   );
 };
 
