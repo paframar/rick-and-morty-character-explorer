@@ -11,6 +11,7 @@ interface CharacterContextValue {
   filteredCharacters: Character[] | null;
   statusFilter: CharacterStatus[];
   setStatusFilter: React.Dispatch<React.SetStateAction<CharacterStatus[]>>;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CharactersContext = createContext<CharacterContextValue>({
@@ -18,6 +19,7 @@ const CharactersContext = createContext<CharacterContextValue>({
   filteredCharacters: null,
   statusFilter: ["Alive", "Dead", "unknown"],
   setStatusFilter: () => {},
+  setSearchTerm: () => {},
 });
 
 export const CharactersProvider = ({ children }: CharactersProviderProps) => {
@@ -30,16 +32,23 @@ export const CharactersProvider = ({ children }: CharactersProviderProps) => {
     "Dead",
     "unknown",
   ]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filterCharacters = () => {
-    const filteredCharacters = allCharacters?.filter((char) =>
-      statusFilter.includes(char.status)
-    ) as Character[];
+    if (!filterCharacters) return;
+    const filteredCharacters: Character[] = allCharacters
+      ?.filter((char) => statusFilter.includes(char.status))
+      .filter(
+        (char) =>
+          searchTerm === "" ||
+          char.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) as Character[];
 
     setFilteredCharacters(filteredCharacters);
   };
 
   useEffect(() => filterCharacters(), [statusFilter]);
+  useEffect(() => filterCharacters(), [searchTerm]);
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -61,6 +70,7 @@ export const CharactersProvider = ({ children }: CharactersProviderProps) => {
           filteredCharacters,
           statusFilter,
           setStatusFilter,
+          setSearchTerm,
         }}
       >
         {children}
@@ -71,13 +81,19 @@ export const CharactersProvider = ({ children }: CharactersProviderProps) => {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useCharacters = () => {
-  const { allCharacters, filteredCharacters, statusFilter, setStatusFilter } =
-    useContext<CharacterContextValue>(CharactersContext);
+  const {
+    allCharacters,
+    filteredCharacters,
+    statusFilter,
+    setStatusFilter,
+    setSearchTerm,
+  } = useContext<CharacterContextValue>(CharactersContext);
   return {
     allCharacters,
     filteredCharacters,
     statusFilter,
     setStatusFilter,
+    setSearchTerm,
   };
 };
 
