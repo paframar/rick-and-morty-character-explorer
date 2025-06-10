@@ -3,12 +3,14 @@ interface NameUrl {
   url: string;
 }
 
+export type CharacterStatus = "Alive" | "Dead" | "unknown";
+
 export interface Character {
   id: number;
   name: string;
   location: NameUrl;
   gender: string;
-  status: string;
+  status: CharacterStatus;
   species: string;
   type: string;
   created: string;

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout, Menu, theme } from "antd";
 import { UserOutlined, StarFilled } from "@ant-design/icons";
+import StatusFilter from "./StatusFilters";
 
 const { Header, Content, Footer } = Layout;
 
@@ -52,6 +53,8 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             items={items}
             style={{ flex: 1, minWidth: 0 }}
           />
+
+          <StatusFilter />
         </Header>
         <Content style={{ padding: "0 48px" }}>
           <div

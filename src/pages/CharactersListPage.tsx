@@ -2,11 +2,10 @@ import CharacterList from "../components/CharacterList";
 import useCharacters from "../hooks/useCharacters";
 
 const CharactersListPage = () => {
-  const { characters } = useCharacters();
+  const { filteredCharacters } = useCharacters();
   return (
     <div>
-      {" "}
-      <CharacterList characters={characters} />
+      <CharacterList characters={filteredCharacters} />
     </div>
   );
 };
