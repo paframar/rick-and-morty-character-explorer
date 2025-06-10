@@ -1,10 +1,12 @@
+interface NameUrl {
+  name: string;
+  url: string;
+}
+
 export interface Character {
   id: number;
   name: string;
-  location: {
-    name: string;
-    url: string;
-  };
+  location: NameUrl;
   gender: string;
   status: string;
   species: string;
@@ -12,9 +14,6 @@ export interface Character {
   created: string;
   episode: string[];
   image: string;
-  origin: {
-    name: string;
-    url: string;
-  };
+  origin: NameUrl;
   url: string;
 }
