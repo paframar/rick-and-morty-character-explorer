@@ -21,7 +21,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       key: "1",
       label: "All Characters ",
       itemIcon: <UserOutlined />,
-      onClick: () => navigate("/"),
+      onClick: () => navigate("/characters"),
     },
     {
       key: "2",
