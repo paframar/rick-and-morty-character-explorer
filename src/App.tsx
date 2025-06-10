@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <AppLayout>
-        <CharacterList characters={characters as Character[]} />
+        <CharacterList characters={characters} />
       </AppLayout>
     </>
   );

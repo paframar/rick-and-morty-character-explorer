@@ -7,7 +7,12 @@ interface CharacterListProps {
 }
 
 const CharacterList = ({ characters }: CharacterListProps) => {
-  if (characters === null) return null;
+  if (characters === null)
+    return (
+      <>
+        <h3>No characters to show</h3>
+      </>
+    );
 
   return (
     <>
