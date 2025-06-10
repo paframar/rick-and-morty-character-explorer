@@ -30,8 +30,8 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   }
 
   const items: MenuItem[] = [
-    getItem("Characters", "Characters", <UserOutlined />),
-    getItem("Favorites", "Favorites", <StarFilled />),
+    getItem("Characters", "1", <UserOutlined />),
+    getItem("Favorites", "2", <StarFilled />),
   ];
   return (
     <Layout style={{ minHeight: "80vh", minWidth: "80vw" }}>
