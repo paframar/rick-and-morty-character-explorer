@@ -50,7 +50,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["2"]}
+          defaultSelectedKeys={["1"]}
           items={items}
           style={{ flex: 1, minWidth: 0 }}
         />
