@@ -1,6 +1,6 @@
 import "./App.css";
 import AppLayout from "./components/AppLayout";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import FavoritesPage from "./pages/FavoritesPage";
 import CharactersListPage from "./pages/CharactersListPage";
@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
         <AppLayout>
           <Routes>
-            <Route path="/" element={<CharactersListPage />} />
+            <Route path="/" element={<Navigate to="/characters" replace />} />
             <Route path="/characters" element={<CharactersListPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/characters/:id" element={<CharacterDetailPage />} />
