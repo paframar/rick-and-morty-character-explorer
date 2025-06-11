@@ -47,8 +47,7 @@ export const CharactersProvider = ({ children }: CharactersProviderProps) => {
     setFilteredCharacters(filteredCharacters);
   };
 
-  useEffect(() => filterCharacters(), [statusFilter]);
-  useEffect(() => filterCharacters(), [searchTerm]);
+  useEffect(() => filterCharacters(), [statusFilter, searchTerm]);
 
   useEffect(() => {
     const fetchCharacters = async () => {
